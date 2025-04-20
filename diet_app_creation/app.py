@@ -1,28 +1,135 @@
+import pyotp
 import streamlit as st
 import pandas as pd
 import base64
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
+import json
+import bcrypt
+import qrcode
+from io import BytesIO
 
-# Example username and password (you can make this more secure later)
-USERNAME = "diet09111991"
-PASSWORD = "test123"
+# ========== SESSION CONFIG ==========
+st.set_page_config(layout="wide")
+SESSION_TIMEOUT_MINUTES = 30
 
-# Function for Login
+# ========== USER AUTHENTICATION ==========
+def load_users():
+    with open("diet_app_creation/users_app.json", "r") as f:
+        return json.load(f)
+
+st.markdown("""
+     <style>
+     h1, h2, h3 {
+         color: white !important;
+     }
+     div[data-testid="stMarkdownContainer"] h1,
+     div[data-testid="stMarkdownContainer"] h2,
+     div[data-testid="stMarkdownContainer"] h3 {
+         color: white !important;
+     }
+     .stApp h1, .stApp h2, .stApp h3 {
+         color: white !important;
+     }
+     .stApp::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(0, 0, 0, 0.3);
+         z-index: -1;
+     }
+     </style>
+ """, unsafe_allow_html=True)
+
+# Function to authenticate the username and password
+def authenticate(username, password):
+    users = load_users()
+    if username in users:
+        stored_pw = users[username]["password"]
+        return bcrypt.checkpw(password.encode(), stored_pw.encode()), users[username]
+    return False, None
+
+
+def save_user_secret(username, secret_key):
+    users = load_users()
+    users[username]["secret_key"] = secret_key
+    with open("diet_app_creation/users_app.json", "w") as f:
+        json.dump(users, f, indent=4)
+
+# Function to verify OTP
+def verify_otp(secret_key, otp):
+    totp = pyotp.TOTP(secret_key)
+    return totp.verify(otp)
+
 def login():
-    # Add login form
-    st.subheader("Please log in to continue")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    # Session timeout check
+    if "login_time" in st.session_state:
+        now = datetime.datetime.now()
+        if (now - st.session_state.login_time).seconds > SESSION_TIMEOUT_MINUTES * 60:
+            st.warning("Session timed out. Please log in again.")
+            for k in ["logged_in", "username", "role", "login_time", "otp_validated", "login_phase", "secret_key"]:
+                st.session_state.pop(k, None)
+            st.stop()
 
-    if st.button("Login"):
-        if username == USERNAME and password == PASSWORD:
-            st.success("Login successful!")
-            return True  # Return True if login is successful
-        else:
-            st.error("Invalid username or password")
-            return False  # Return False if login fails
+    if st.session_state.get("logged_in", False):
+        return True
+
+    st.subheader("Login")
+
+    # Phase 1: Username + Password
+    if "username" not in st.session_state:
+        username = st.text_input("Username", key="username_input")
+        password = st.text_input("Password", type="password", key="password_input")
+
+        if st.button("Login"):
+            valid, user_data = authenticate(username, password)
+            if valid:
+                st.session_state.username = username
+                st.session_state.role = user_data["role"]
+                st.session_state.secret_key = user_data.get("secret_key", None)
+
+                # If no secret key exists, generate it and update user.json
+                if not st.session_state.secret_key:
+                    new_secret = pyotp.random_base32()
+                    st.session_state.secret_key = new_secret
+                    save_user_secret(username, new_secret)
+                    st.session_state.show_qr = True  # flag to show QR only once
+                else:
+                    st.session_state.show_qr = False
+
+                st.session_state.login_phase = "otp"
+                st.rerun()
+            else:
+                st.error("Invalid username or password")
+        st.stop()
+
+    # Phase 2: OTP
+    if st.session_state.get("login_phase") == "otp":
+        if st.session_state.get("show_qr", False):
+            st.info("Scan the QR code below in your authenticator app (only once).")
+            totp = pyotp.TOTP(st.session_state.secret_key)
+            uri = totp.provisioning_uri(name=st.session_state.username, issuer_name="DietTrackerApp")
+            qr = qrcode.make(uri)
+            buf = BytesIO()
+            qr.save(buf)
+            st.image(buf.getvalue(), caption="Scan this QR Code in Google Authenticator")
+
+        otp = st.text_input("Enter OTP", type="password")
+
+        if st.button("Verify OTP"):
+            if verify_otp(st.session_state.secret_key, otp):
+                st.success("OTP verified. Logging in...")
+                st.session_state.logged_in = True
+                st.session_state.login_time = datetime.datetime.now()
+                st.rerun()
+            else:
+                st.error("Invalid OTP")
+        st.stop()
+
 
 def set_bg_from_local(image_file):
     try:
@@ -43,63 +150,16 @@ def set_bg_from_local(image_file):
     except FileNotFoundError:
         st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
 
+
+set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
+
+
 def main_app():
     # Consolidated CSS and JavaScript for styling
-    st.markdown("""
-        <style>
-        /* Broad selectors for headings */
-        h1, h2, h3 {
-            color: white !important;
-        }
-        /* Streamlit-specific markdown containers */
-        div[data-testid="stMarkdownContainer"] h1,
-        div[data-testid="stMarkdownContainer"] h2,
-        div[data-testid="stMarkdownContainer"] h3 {
-            color: white !important;
-        }
-        /* Main app container */
-        .stApp h1, .stApp h2, .stApp h3 {
-            color: white !important;
-        }
-        /* Date input styling */
-        input[type="date"] {
-            color: white !important;
-            background-color: black !important;
-            -webkit-text-fill-color: white !important;
-        }
-        .stDateInput > div > div {
-            color: white !important;
-        }
-        /* Optional: Semi-transparent overlay for better text contrast */
-        .stApp::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.3); /* Adjust opacity as needed */
-            z-index: -1;
-        }
-        /* Debug: Red border to confirm CSS injection */
-        .stApp {
-            border: 2px solid red !important;
-        }
-        </style>
-        <script>
-        // JavaScript fallback for headings
-        document.addEventListener('DOMContentLoaded', function() {
-            const headings = document.querySelectorAll('h1, h2, h3');
-            headings.forEach(heading => {
-                heading.style.color = 'white';
-            });
-        });
-        </script>
-    """, unsafe_allow_html=True)
-
-    # Set background image with error handling
-    set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
-
+    st.sidebar.title("Menu")
+    if st.sidebar.button("Logout"):
+        st.session_state["logged_in"] = False
+        st.rerun()
     # Title
     st.title("Diet Tracker App")
 
@@ -149,49 +209,6 @@ def main_app():
     st.subheader("Before Bed Snack (09:00 PM - 10:30 PM)")
     bedtime_food = st.text_area("Food Consumed (Before Bed)", placeholder="Enter foods consumed before bed")
 
-    # Function to store data in a CSV file
-    # def store_data(selected_date, weight, sleep_hours, sleep_minutes, coffee_cups, walking_distance, breakfast_food,
-    #                snack_food, lunch_food, evening_food, dinner_food, bedtime_food):
-    #     data = {
-    #         "Date": [selected_date],
-    #         "Weight (kg)": [weight],
-    #         "Sleep Hours": [sleep_hours],
-    #         "Sleep Minutes": [sleep_minutes],
-    #         "Coffee Cups": [coffee_cups],
-    #         "Walking Distance (km)": [walking_distance],
-    #         "Breakfast": [breakfast_food],
-    #         "Snack": [snack_food],
-    #         "Lunch": [lunch_food],
-    #         "Evening Snack": [evening_food],
-    #         "Dinner": [dinner_food],
-    #         "Before Bed Snack": [bedtime_food]
-    #     }
-    #     df = pd.DataFrame(data)
-    #     try:
-    #         existing_df = pd.read_csv("user_entries.csv")
-    #         updated_df = pd.concat([existing_df, df], ignore_index=True)
-    #         updated_df.to_csv("user_entries.csv", index=False)
-    #     except FileNotFoundError:
-    #         df.to_csv("user_entries.csv", index=False)
-
-    # # Submit Button
-    # if st.button("Submit"):
-    #     st.write(f"### Summary for {selected_date}")
-    #     st.write(f"**Weight**: {weight} kg")
-    #     st.write(f"**Sleep**: {sleep_hours} hours and {sleep_minutes} minutes")
-    #     st.write(f"**Coffee Consumed**: {coffee_cups} cups")
-    #     st.write(f"**Walking Distance**: {walking_distance} km")
-    #     st.write(f"#### Food Consumption Summary:")
-    #     st.write(f"**Breakfast**: {breakfast_food}")
-    #     st.write(f"**Snack/Light Meals**: {snack_food}")
-    #     st.write(f"**Lunch**: {lunch_food}")
-    #     st.write(f"**Evening Snack**: {evening_food}")
-    #     st.write(f"**Dinner**: {dinner_food}")
-    #     st.write(f"**Before Bed Snack**: {bedtime_food}")
-    #     store_data(selected_date, weight, sleep_hours, sleep_minutes, coffee_cups, walking_distance, breakfast_food,
-    #                snack_food, lunch_food, evening_food, dinner_food, bedtime_food)
-    #
-
     # Google Sheets setup
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_name("diet_app_creation/creds.json", scope)
@@ -209,7 +226,7 @@ def main_app():
         st.write("Submitting your entry...")
 
         data_row = [
-            str(datetime.date.today()),
+            str(selected_date),
             weight,
             sleep_hours,
             sleep_minutes,
@@ -225,6 +242,7 @@ def main_app():
 
         store_data_to_gsheet(data_row)
         st.success("Entry submitted successfully!")
+
 
 def app():
     # Show login screen first
