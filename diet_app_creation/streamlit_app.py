@@ -46,7 +46,7 @@ def load_users():
 
 st.markdown("""
     <style>
-    /* Headings white with shadow */
+    /* General styling for headings */
     h1, h2, h3, h4, h5, h6 {
         color: white !important;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
@@ -63,16 +63,16 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Input field text color */
-    .stTextInput input, .stPassword input {
-        color: white !important;
-        background-color: rgba(0,0,0,0.4) !important; /* Semi-transparent black background */
-        border: 1px solid white !important;
+    /* Styling for Input Fields (Black Text with Light Background) */
+    .stTextInput input, .stNumberInput input, .stSlider input, .stTextArea textarea {
+        color: black !important;  /* Text color black */
+        background-color: #ffffff !important; /* White background for better visibility */
+        border: 1px solid #ccc !important;  /* Light gray border for the inputs */
     }
 
-    /* Input label text color */
-    .stTextInput label, .stPassword label {
-        color: white !important;
+    /* Label text color */
+    .stTextInput label, .stNumberInput label, .stSlider label, .stTextArea label {
+        color: black !important;  /* Label text color black */
     }
 
     /* Button text color */
@@ -87,12 +87,13 @@ st.markdown("""
         background-color: rgba(255, 255, 255, 0.3) !important;
     }
 
-    /* Fix for input placeholders (if any) */
-    .stTextInput input::placeholder, .stPassword input::placeholder {
-        color: rgba(255,255,255,0.7) !important;
+    /* Placeholder text color */
+    .stTextInput input::placeholder, .stPassword input::placeholder, .stNumberInput input::placeholder, .stTextArea textarea::placeholder {
+        color: rgba(0, 0, 0, 0.5) !important;  /* Light black placeholder */
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # Function to authenticate the username and password
