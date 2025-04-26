@@ -16,7 +16,7 @@ SESSION_TIMEOUT_MINUTES = 30
 
 # ========== USER AUTHENTICATION ==========
 def load_users():
-    return json.loads(st.secrets["users_app"]["json"])
+    return dict(st.secrets["users_app"])
 
 st.markdown("""
      <style>
