@@ -18,31 +18,91 @@ SESSION_TIMEOUT_MINUTES = 30
 def load_users():
     return dict(st.secrets["users_app"])
 
+# st.markdown("""
+#      <style>
+#      h1, h2, h3 {
+#          color: white !important;
+#      }
+#      div[data-testid="stMarkdownContainer"] h1,
+#      div[data-testid="stMarkdownContainer"] h2,
+#      div[data-testid="stMarkdownContainer"] h3 {
+#          color: white !important;
+#      }
+#      .stApp h1, .stApp h2, .stApp h3 {
+#          color: white !important;
+#      }
+#      .stApp::before {
+#          content: '';
+#          position: absolute;
+#          top: 0;
+#          left: 0;
+#          right: 0;
+#          bottom: 0;
+#          background: rgba(0, 0, 0, 0.3);
+#          z-index: -1;
+#      }
+#      </style>
+#  """, unsafe_allow_html=True)
+
 st.markdown("""
-     <style>
-     h1, h2, h3 {
-         color: white !important;
-     }
-     div[data-testid="stMarkdownContainer"] h1,
-     div[data-testid="stMarkdownContainer"] h2,
-     div[data-testid="stMarkdownContainer"] h3 {
-         color: white !important;
-     }
-     .stApp h1, .stApp h2, .stApp h3 {
-         color: white !important;
-     }
-     .stApp::before {
-         content: '';
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         background: rgba(0, 0, 0, 0.3);
-         z-index: -1;
-     }
-     </style>
- """, unsafe_allow_html=True)
+    <style>
+    /* Ensure the app background is visible and doesn't interfere */
+    .stApp {
+        position: relative;
+        color: white !important;
+    }
+
+    /* Set text color for all markdown elements, including subheaders and write */
+    .stMarkdown, .stMarkdown p, .stMarkdown div, .stMarkdown span, .stMarkdown h1, 
+    .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        color: white !important;
+    }
+
+    /* Target all text within the app container */
+    .stApp, .stApp * {
+        color: white !important;
+    }
+
+    /* Specifically target subheaders */
+    [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stMarkdownContainer"] h4,
+    [data-testid="stMarkdownContainer"] h5,
+    [data-testid="stMarkdownContainer"] h6 {
+        color: white !important;
+    }
+
+    /* Ensure input labels and other UI text are visible */
+    label, .stTextInput label, .stNumberInput label, .stSlider label, .stDateInput label {
+        color: white !important;
+    }
+
+    /* Fix for mobile viewports */
+    @media only screen and (max-width: 600px) {
+        .stApp, .stMarkdown, .stMarkdown p, .stMarkdown div, .stMarkdown span,
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, 
+        .stMarkdown h5, .stMarkdown h6 {
+            color: white !important;
+        }
+        label, .stTextInput label, .stNumberInput label, .stSlider label, .stDateInput label {
+            color: white !important;
+        }
+    }
+
+    /* Optional: Adjust background overlay for better contrast */
+    .stApp::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); /* Increased opacity for better text visibility */
+        z-index: -1;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Function to authenticate the username and password
 def authenticate(username, password):
