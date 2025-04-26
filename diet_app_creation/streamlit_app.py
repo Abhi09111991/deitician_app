@@ -18,149 +18,31 @@ SESSION_TIMEOUT_MINUTES = 30
 def load_users():
     return dict(st.secrets["users_app"])
 
-# st.markdown("""
-#      <style>
-#      h1, h2, h3 {
-#          color: white !important;
-#      }
-#      div[data-testid="stMarkdownContainer"] h1,
-#      div[data-testid="stMarkdownContainer"] h2,
-#      div[data-testid="stMarkdownContainer"] h3 {
-#          color: white !important;
-#      }
-#      .stApp h1, .stApp h2, .stApp h3 {
-#          color: white !important;
-#      }
-#      .stApp::before {
-#          content: '';
-#          position: absolute;
-#          top: 0;
-#          left: 0;
-#          right: 0;
-#          bottom: 0;
-#          background: rgba(0, 0, 0, 0.3);
-#          z-index: -1;
-#      }
-#      </style>
-#  """, unsafe_allow_html=True)
-
 st.markdown("""
-    <style>
-    /* Ensure the app container has a default white text color */
-    .stApp {
-        position: relative;
-        color: white !important;
-    }
-
-    /* Target all markdown elements, including subheaders and write */
-    .stMarkdown, 
-    .stMarkdown p, 
-    .stMarkdown div, 
-    .stMarkdown span, 
-    .stMarkdown h1, 
-    .stMarkdown h2, 
-    .stMarkdown h3, 
-    .stMarkdown h4, 
-    .stMarkdown h5, 
-    .stMarkdown h6 {
-        color: white !important;
-    }
-
-    /* Specifically target Streamlit subheaders */
-    [data-testid="stMarkdownContainer"] h1,
-    [data-testid="stMarkdownContainer"] h2,
-    [data-testid="stMarkdownContainer"] h3,
-    [data-testid="stMarkdownContainer"] h4,
-    [data-testid="stMarkdownContainer"] h5,
-    [data-testid="stMarkdownContainer"] h6,
-    .stMarkdownContainer h1,
-    .stMarkdownContainer h2,
-    .stMarkdownContainer h3,
-    .stMarkdownContainer h4,
-    .stMarkdownContainer h5,
-    .stMarkdownContainer h6 {
-        color: white !important;
-    }
-
-    /* Target Streamlit's text and markdown containers */
-    [data-testid="stMarkdownContainer"],
-    [data-testid="stText"],
-    .stText,
-    .stMarkdown * {
-        color: white !important;
-    }
-
-    /* Ensure input labels and other UI text are visible */
-    label,
-    .stTextInput label,
-    .stNumberInput label,
-    .stSlider label,
-    .stDateInput label,
-    .stTextArea label {
-        color: white !important;
-    }
-
-    /* Broad fallback for all text within the app */
-    .stApp *,
-    .stApp p,
-    .stApp div,
-    .stApp span {
-        color: white !important;
-    }
-
-    /* Mobile-specific rules to override defaults */
-    @media only screen and (max-width: 768px) {
-        .stApp,
-        .stMarkdown,
-        .stMarkdown p,
-        .stMarkdown div,
-        .stMarkdown span,
-        .stMarkdown h1,
-        .stMarkdown h2,
-        .stMarkdown h3,
-        .stMarkdown h4,
-        .stMarkdown h5,
-        .stMarkdown h6,
-        [data-testid="stMarkdownContainer"],
-        [data-testid="stMarkdownContainer"] h1,
-        [data-testid="stMarkdownContainer"] h2,
-        [data-testid="stMarkdownContainer"] h3,
-        [data-testid="stMarkdownContainer"] h4,
-        [data-testid="stMarkdownContainer"] h5,
-        [data-testid="stMarkdownContainer"] h6,
-        [data-testid="stText"],
-        .stText,
-        .stMarkdownContainer h1,
-        .stMarkdownContainer h2,
-        .stMarkdownContainer h3,
-        .stMarkdownContainer h4,
-        .stMarkdownContainer h5,
-        .stMarkdownContainer h6 {
-            color: white !important;
-        }
-        label,
-        .stTextInput label,
-        .stNumberInput label,
-        .stSlider label,
-        .stDateInput label,
-        .stTextArea label {
-            color: white !important;
-        }
-    }
-
-    /* Background overlay for contrast */
-    .stApp::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6); /* Increased opacity for better contrast */
-        z-index: -1;
-    }
-    </style>
-""", unsafe_allow_html=True)
+     <style>
+     h1, h2, h3 {
+         color: white !important;
+     }
+     div[data-testid="stMarkdownContainer"] h1,
+     div[data-testid="stMarkdownContainer"] h2,
+     div[data-testid="stMarkdownContainer"] h3 {
+         color: white !important;
+     }
+     .stApp h1, .stApp h2, .stApp h3 {
+         color: white !important;
+     }
+     .stApp::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(0, 0, 0, 0.3);
+         z-index: -1;
+     }
+     </style>
+ """, unsafe_allow_html=True)
 
 # Function to authenticate the username and password
 def authenticate(username, password):
