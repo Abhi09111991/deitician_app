@@ -18,31 +18,68 @@ SESSION_TIMEOUT_MINUTES = 30
 def load_users():
     return dict(st.secrets["users_app"])
 
+# st.markdown("""
+#      <style>
+#      h1, h2, h3 {
+#          color: white !important;
+#      }
+#      div[data-testid="stMarkdownContainer"] h1,
+#      div[data-testid="stMarkdownContainer"] h2,
+#      div[data-testid="stMarkdownContainer"] h3 {
+#          color: white !important;
+#      }
+#      .stApp h1, .stApp h2, .stApp h3 {
+#          color: white !important;
+#      }
+#      .stApp::before {
+#          content: '';
+#          position: absolute;
+#          top: 0;
+#          left: 0;
+#          right: 0;
+#          bottom: 0;
+#          background: rgba(0, 0, 0, 0.3);
+#          z-index: -1;
+#      }
+#      </style>
+#  """, unsafe_allow_html=True)
+
 st.markdown("""
-     <style>
-     h1, h2, h3 {
-         color: white !important;
-     }
-     div[data-testid="stMarkdownContainer"] h1,
-     div[data-testid="stMarkdownContainer"] h2,
-     div[data-testid="stMarkdownContainer"] h3 {
-         color: white !important;
-     }
-     .stApp h1, .stApp h2, .stApp h3 {
-         color: white !important;
-     }
-     .stApp::before {
-         content: '';
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         background: rgba(0, 0, 0, 0.3);
-         z-index: -1;
-     }
-     </style>
- """, unsafe_allow_html=True)
+    <style>
+    /* Heading Colors with Shadow */
+    h1, h2, h3, h4, h5, h6 {
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    div[data-testid="stMarkdownContainer"] h1,
+    div[data-testid="stMarkdownContainer"] h2,
+    div[data-testid="stMarkdownContainer"] h3,
+    div[data-testid="stMarkdownContainer"] h4,
+    div[data-testid="stMarkdownContainer"] h5,
+    div[data-testid="stMarkdownContainer"] h6 {
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Body Text with Shadow */
+    .stApp, .stApp p, .stApp div, .stApp span, .stApp label {
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Background overlay */
+    .stApp::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: -1;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 # Function to authenticate the username and password
 def authenticate(username, password):
