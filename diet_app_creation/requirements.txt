@@ -21,11 +21,6 @@ itsdangerous==2.2.0
 Jinja2==3.1.6
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
-Kivy==2.3.1
-Kivy-Garden==0.1.5
-kivy_garden.graph @ https://github.com/kivy-garden/graph/archive/master.zip#sha256=fade823c65243bbdced2f54d549ec392d2078c89e25e015dc3fa8d3e9ed23659
-KivyCalendar==0.1.3
-kivymd==1.2.0
 MarkupSafe==3.0.2
 narwhals==1.35.0
 numpy==2.2.4
