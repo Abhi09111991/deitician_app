@@ -66,22 +66,74 @@ def set_bg_from_local(image_file):
                 background-image: url("data:image/png;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
-                color: white;
+                background-attachment: fixed;
             }}
-            h1, h2, h3, h4, h5, h6, p, div, span, label, input, textarea {{
+            /* Headers and markdown text */
+            h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div {{
                 color: white !important;
             }}
+            /* Input fields */
+            input, textarea {{
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                border: 1px solid #cccccc !important;
+                border-radius: 4px !important;
+            }}
+            /* Input labels */
+            label {{
+                color: white !important;
+                font-weight: bold !important;
+            }}
+            /* Buttons */
             button[kind="primary"] {{
-                background-color: #1f77b4;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 0.5em 1em;
-                font-size: 1em;
+                background-color: #1f77b4 !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 8px !important;
+                padding: 0.5em 1em !important;
+                font-size: 1em !important;
             }}
             button[kind="primary"]:hover {{
-                background-color: #0056b3;
-                color: white;
+                background-color: #0056b3 !important;
+                color: white !important;
+            }}
+            /* Secondary buttons (e.g., sidebar) */
+            button:not([kind="primary"]) {{
+                background-color: #f0f0f0 !important;
+                color: #333333 !important;
+                border-radius: 8px !important;
+            }}
+            button:not([kind="primary"]):hover {{
+                background-color: #d9d9d9 !important;
+                color: #333333 !important;
+            }}
+            /* Selectbox (dropdown) */
+            div[data-baseweb="select"] > div {{
+                background-color: #ffffff !important;
+                color: #000000 !important;
+                border: 1px solid #cccccc !important;
+                border-radius: 4px !important;
+            }}
+            div[data-baseweb="select"] span {{
+                color: #000000 !important;
+            }}
+            /* Ensure placeholder text is visible */
+            input::placeholder, textarea::placeholder {{
+                color: #666666 !important;
+                opacity: 1 !important;
+            }}
+            /* Mobile responsiveness */
+            @media (max-width: 600px) {{
+                .stApp {{
+                    background-size: contain !important;
+                    background-repeat: no-repeat !important;
+                }}
+                input, textarea, button, div[data-baseweb="select"] > div {{
+                    font-size: 16px !important;
+                }}
+                label {{
+                    font-size: 14px !important;
+                }}
             }}
             </style>
             """,
@@ -89,7 +141,6 @@ def set_bg_from_local(image_file):
         )
     except FileNotFoundError:
         st.error(f"Background image '{image_file}' not found.")
-
 
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
 
