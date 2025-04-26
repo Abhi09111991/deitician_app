@@ -63,12 +63,37 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Fix text inside buttons */
+    /* Input field text color */
+    .stTextInput input, .stPassword input {
+        color: white !important;
+        background-color: rgba(0,0,0,0.4) !important; /* Semi-transparent black background */
+        border: 1px solid white !important;
+    }
+
+    /* Input label text color */
+    .stTextInput label, .stPassword label {
+        color: white !important;
+    }
+
+    /* Button text color */
     button, .stButton>button {
         color: white !important;
+        background-color: rgba(0,0,0,0.6) !important;
+        border: 1px solid white !important;
+    }
+
+    /* Fix for button hover */
+    .stButton>button:hover {
+        background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    /* Fix for input placeholders (if any) */
+    .stTextInput input::placeholder, .stPassword input::placeholder {
+        color: rgba(255,255,255,0.7) !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Function to authenticate the username and password
 def authenticate(username, password):
