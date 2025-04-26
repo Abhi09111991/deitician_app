@@ -128,23 +128,27 @@ def login():
                 st.error("Invalid OTP")
         st.stop()
 
-def set_bg_from_url(url):
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("{url}");
-            background-size: cover;
-            background-position: center;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+def set_bg_from_local(image_file):
+    try:
+        with open(image_file, "rb") as img_file:
+            encoded_string = base64.b64encode(img_file.read()).decode()
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/png;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
 
-# Optional: Add your own background URL here
-# Example hosted URL
-set_bg_from_url("https://images.unsplash.com/photo-1504674900247-0877df9cc836")
+
+set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
 
 def main_app():
     # Consolidated CSS and JavaScript for styling
