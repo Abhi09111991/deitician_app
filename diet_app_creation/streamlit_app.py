@@ -9,7 +9,10 @@ import json
 import bcrypt
 import qrcode
 from io import BytesIO
-
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import ssl
+import smtplib
 # ========== SESSION CONFIG ==========
 st.set_page_config(layout="wide")
 SESSION_TIMEOUT_MINUTES = 30
@@ -18,6 +21,29 @@ SESSION_TIMEOUT_MINUTES = 30
 def load_users():
     return dict(st.secrets["users_app"])
 
+def send_email_notification(subject, body):
+    try:
+        sender_email = st.secrets["email"]["email_user"]
+        receiver_email = st.secrets["email"]["receiver_email"]
+        password = st.secrets["email"]["email_password"]
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = subject
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+        part = MIMEText(body, "plain")
+        message.attach(part)
+
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+        print("Email sent successfully.")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+#grkl ayyn ldax nzkf
 # st.markdown("""
 #      <style>
 #      h1, h2, h3 {
@@ -303,6 +329,12 @@ def main_app():
         ]
 
         store_data_to_gsheet(data_row)
+
+        send_email_notification(
+            subject="New Diet Entry!",
+            body=f"A new diet entry has been submitted by {st.session_state.get('user_username', 'Unknown User')}. Please review it!"
+        )
+
         st.success("Entry submitted successfully!")
 
 def app():
