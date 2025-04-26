@@ -94,9 +94,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
-
-
 # Function to authenticate the username and password
 def authenticate(username, password):
     users = load_users()

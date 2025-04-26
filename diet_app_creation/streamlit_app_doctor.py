@@ -264,12 +264,12 @@ def doctor_view():
         st.write(f"**Walking Distance**: {selected_entry['walking_distance']} km")
 
         st.markdown("#### Food Consumption Summary:")
-        st.write(f"**Breakfast**: {selected_entry['breakfast_food']}")
-        st.write(f"**Snack**: {selected_entry['snack_food']}")
-        st.write(f"**Lunch**: {selected_entry['lunch_food']}")
-        st.write(f"**Evening Snack**: {selected_entry['evening_food']}")
-        st.write(f"**Dinner**: {selected_entry['dinner_food']}")
-        st.write(f"**Before Bed**: {selected_entry['bedtime_food']}")
+        st.write(f"**Breakfast (06:45 AM - 08:00 AM)**: {selected_entry['breakfast_food']}")
+        st.write(f"**Snack (09:30 AM - 11:30 AM)**: {selected_entry['snack_food']}")
+        st.write(f"**Lunch (12:30 PM - 02:30 PM)**: {selected_entry['lunch_food']}")
+        st.write(f"**Evening Snack (05:30 PM)**: {selected_entry['evening_food']}")
+        st.write(f"**Dinner (07:00 PM - 08:00 PM)**: {selected_entry['dinner_food']}")
+        st.write(f"**Before Bed (09:00 PM - 10:30 PM)**: {selected_entry['bedtime_food']}")
 
     except Exception as e:
         st.error(f"An error occurred while loading the data: {e}")
