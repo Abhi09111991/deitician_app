@@ -63,16 +63,16 @@ st.markdown("""
         color: white !important;
     }
 
-    /* Styling for Input Fields (Black Text with Light Background) */
+    /* Styling for Input Fields (Force white text with light background) */
     .stTextInput input, .stNumberInput input, .stSlider input, .stTextArea textarea {
-        color: black !important;  /* Text color black */
-        background-color: #ffffff !important; /* White background for better visibility */
+        color: white !important;  /* Force white text color */
+        background-color: #333 !important; /* Dark background for inputs */
         border: 1px solid #ccc !important;  /* Light gray border for the inputs */
     }
 
     /* Label text color */
     .stTextInput label, .stNumberInput label, .stSlider label, .stTextArea label {
-        color: black !important;  /* Label text color black */
+        color: white !important;  /* Force label text color to white */
     }
 
     /* Button text color */
@@ -89,10 +89,11 @@ st.markdown("""
 
     /* Placeholder text color */
     .stTextInput input::placeholder, .stPassword input::placeholder, .stNumberInput input::placeholder, .stTextArea textarea::placeholder {
-        color: rgba(0, 0, 0, 0.5) !important;  /* Light black placeholder */
+        color: rgba(255, 255, 255, 0.6) !important;  /* Light white placeholder */
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
