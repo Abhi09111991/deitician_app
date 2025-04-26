@@ -78,7 +78,6 @@ def set_bg_from_local(image_file):
     except FileNotFoundError:
         st.error(f"Background image '{image_file}' not found.")
 
-
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
 
 # ========== DOCTOR LOGIN ==========

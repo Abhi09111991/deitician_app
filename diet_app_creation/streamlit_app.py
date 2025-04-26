@@ -146,7 +146,6 @@ def login():
 #         )
 #     except FileNotFoundError:
 #         st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
-
 def set_bg_from_local(image_file):
     try:
         with open(image_file, "rb") as img_file:
