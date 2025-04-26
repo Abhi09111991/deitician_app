@@ -46,37 +46,26 @@ def load_users():
 
 st.markdown("""
     <style>
-    /* Heading Colors with Shadow */
+    /* Headings white with shadow */
     h1, h2, h3, h4, h5, h6 {
         color: white !important;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    }
-    div[data-testid="stMarkdownContainer"] h1,
-    div[data-testid="stMarkdownContainer"] h2,
-    div[data-testid="stMarkdownContainer"] h3,
-    div[data-testid="stMarkdownContainer"] h4,
-    div[data-testid="stMarkdownContainer"] h5,
-    div[data-testid="stMarkdownContainer"] h6 {
-        color: white !important;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
     }
 
-    /* Body Text with Shadow */
-    .stApp, .stApp p, .stApp div, .stApp span, .stApp label {
+    /* Only markdown text inside app, not full Streamlit divs */
+    .stMarkdown p {
         color: white !important;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     }
 
-    /* Background overlay */
-    .stApp::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: -1;
+    /* Sidebar text white */
+    .css-1d391kg p, .css-1d391kg h1, .css-1d391kg h2, .css-1d391kg h3 {
+        color: white !important;
+    }
+
+    /* Fix text inside buttons */
+    button, .stButton>button {
+        color: white !important;
     }
     </style>
 """, unsafe_allow_html=True)
