@@ -332,7 +332,7 @@ def main_app():
 
         send_email_notification(
             subject="New Diet Entry!",
-            body=f"A new diet entry has been submitted by {st.session_state.get('user_username', 'Unknown User')}. Please review it!"
+            body=f"A new diet entry has been submitted by {st.session_state.get('user_username', 'Abhinav')}. Please review it!"
         )
 
         st.success("Entry submitted successfully!")
