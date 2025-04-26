@@ -140,9 +140,10 @@ def set_bg_from_local(image_file):
                 background-color: rgba(0, 0, 0, 0.7) !important;
             }}
             /* Mobile responsiveness */
-            @media (max-width: 600px) {{
+            @media (max-width: 768px) {{
                 .stApp {{
-                    background-size: contain !important;
+                    background-size: cover !important;
+                    background-position: center top !important;
                     background-repeat: no-repeat !important;
                 }}
                 div.stTextInput > div > input, div.stButton > button, div[data-baseweb="select"] > div {{
