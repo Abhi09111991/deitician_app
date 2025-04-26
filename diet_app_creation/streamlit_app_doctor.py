@@ -122,7 +122,13 @@ def set_bg_from_local(image_file):
                 border-radius: 4px !important;
                 padding: 8px !important;
             }}
-            div[data-baseweb="select"] > div > span, div[data-baseweb="select"] > div *, div[data-baseweb="select"] span, div[data-baseweb="select"] div, div[data-baseweb="select"] li {{
+            div[data-baseweb="select"] > div > span, 
+            div[data-baseweb="select"] > div > div, 
+            div[data-baseweb="select"] > div > div > span, 
+            div[data-baseweb="select"] span, 
+            div[data-baseweb="select"] div, 
+            div[data-baseweb="select"] li, 
+            div[data-baseweb="select"] * {{
                 color: #000000 !important;
                 background-color: #ffffff !important;
             }}
