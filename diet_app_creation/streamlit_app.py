@@ -128,24 +128,6 @@ def login():
                 st.error("Invalid OTP")
         st.stop()
 
-# def set_bg_from_local(image_file):
-#     try:
-#         with open(image_file, "rb") as img_file:
-#             encoded_string = base64.b64encode(img_file.read()).decode()
-#         st.markdown(
-#             f"""
-#             <style>
-#             .stApp {{
-#                 background-image: url("data:image/png;base64,{encoded_string}");
-#                 background-size: cover;
-#                 background-position: center;
-#             }}
-#             </style>
-#             """,
-#             unsafe_allow_html=True
-#         )
-#     except FileNotFoundError:
-#         st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
 def set_bg_from_local(image_file):
     try:
         with open(image_file, "rb") as img_file:
@@ -153,121 +135,17 @@ def set_bg_from_local(image_file):
         st.markdown(
             f"""
             <style>
-            /* ========== Background and App ========== */
             .stApp {{
                 background-image: url("data:image/png;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
-                background-attachment: fixed;
-                background-color: #333333 !important; /* Fallback */
-            }}
-            /* ========== Headers and Markdown Text ========== */
-            h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div:not([data-baseweb="select"]) {{
-                color: white !important;
-            }}
-            /* ========== Input Fields ========== */
-            div.stTextInput > div > input {{
-                background-color: #ffffff !important;
-                color: #000000 !important;
-                border: 1px solid #cccccc !important;
-                border-radius: 4px !important;
-                padding: 8px !important;
-            }}
-            /* ========== Input Labels ========== */
-            div.stTextInput > label, div.stSelectbox > label {{
-                color: white !important;
-                font-weight: bold !important;
-            }}
-            /* ========== Primary Buttons (e.g., Login, Verify OTP) ========== */
-            div.stButton > button[kind="primary"] {{
-                background-color: #1f77b4 !important;
-                color: #ffffff !important;
-                border: none !important;
-                border-radius: 8px !important;
-                padding: 10px 20px !important;
-                font-size: 16px !important;
-                font-weight: bold !important;
-            }}
-            div.stButton > button[kind="primary"]:hover {{
-                background-color: #0056b3 !important;
-                color: #ffffff !important;
-            }}
-            /* ========== Secondary Buttons (e.g., Logout) ========== */
-            div.stButton > button:not([kind="primary"]) {{
-                background-color: #d9d9d9 !important;
-                color: #333333 !important;
-                border: none !important;
-                border-radius: 8px !important;
-                padding: 10px 20px !important;
-                font-size: 16px !important;
-                font-weight: bold !important;
-            }}
-            div.stButton > button:not([kind="primary"]):hover {{
-                background-color: #bfbfbf !important;
-                color: #333333 !important;
-            }}
-            /* ========== Selectbox (Dropdown) ========== */
-            div[data-baseweb="select"] > div {{
-                background-color: #ffffff !important;
-                color: #000000 !important;
-                border: 1px solid #cccccc !important;
-                border-radius: 4px !important;
-                padding: 8px !important;
-            }}
-            /* Selected value inside selectbox */
-            div[data-baseweb="select"] div[role="combobox"] > div {{
-                color: #000000 !important;
-                background-color: #ffffff !important;
-            }}
-            /* Dropdown options inside selectbox */
-            div[data-baseweb="select"] > div > span, 
-            div[data-baseweb="select"] > div > div, 
-            div[data-baseweb="select"] > div > div > span, 
-            div[data-baseweb="select"] span, 
-            div[data-baseweb="select"] div, 
-            div[data-baseweb="select"] li, 
-            div[data-baseweb="select"] * {{
-                color: #000000 !important;
-                background-color: #ffffff !important;
-            }}
-            /* Dropdown arrow */
-            div[data-baseweb="select"] > div::after {{
-                border-color: #000000 !important;
-            }}
-            /* Placeholder text */
-            input::placeholder {{
-                color: #666666 !important;
-                opacity: 1 !important;
-            }}
-            /* ========== Sidebar ========== */
-            section[data-testid="stSidebar"] {{
-                background-color: rgba(0, 0, 0, 0.7) !important;
-            }}
-            /* ========== Mobile Responsiveness ========== */
-            @media (max-width: 768px) {{
-                .stApp {{
-                    background-size: cover !important;
-                    background-position: center top !important;
-                    background-repeat: no-repeat !important;
-                }}
-                div.stTextInput > div > input, div.stButton > button, div[data-baseweb="select"] > div {{
-                    font-size: 18px !important;
-                    padding: 10px !important;
-                }}
-                div.stTextInput > label, div.stSelectbox > label {{
-                    font-size: 16px !important;
-                }}
-                div.stButton > button {{
-                    width: 100% !important;
-                    margin-bottom: 10px !important;
-                }}
             }}
             </style>
             """,
             unsafe_allow_html=True
         )
     except FileNotFoundError:
-        st.error(f"Background image '{image_file}' not found.")
+        st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
 
 
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
