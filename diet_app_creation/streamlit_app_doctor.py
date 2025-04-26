@@ -67,44 +67,51 @@ def set_bg_from_local(image_file):
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
+                background-color: #333333 !important; /* Fallback */
             }}
             /* Headers and markdown text */
             h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div {{
                 color: white !important;
             }}
             /* Input fields */
-            input, textarea {{
+            div.stTextInput > div > input {{
                 background-color: #ffffff !important;
                 color: #000000 !important;
                 border: 1px solid #cccccc !important;
                 border-radius: 4px !important;
+                padding: 8px !important;
             }}
             /* Input labels */
-            label {{
+            div.stTextInput > label, div.stSelectbox > label {{
                 color: white !important;
                 font-weight: bold !important;
             }}
-            /* Buttons */
-            button[kind="primary"] {{
+            /* Primary buttons (e.g., Login, Verify OTP) */
+            div.stButton > button[kind="primary"] {{
                 background-color: #1f77b4 !important;
-                color: white !important;
+                color: #ffffff !important;
                 border: none !important;
                 border-radius: 8px !important;
-                padding: 0.5em 1em !important;
-                font-size: 1em !important;
+                padding: 10px 20px !important;
+                font-size: 16px !important;
+                font-weight: bold !important;
             }}
-            button[kind="primary"]:hover {{
+            div.stButton > button[kind="primary"]:hover {{
                 background-color: #0056b3 !important;
-                color: white !important;
+                color: #ffffff !important;
             }}
-            /* Secondary buttons (e.g., sidebar) */
-            button:not([kind="primary"]) {{
-                background-color: #f0f0f0 !important;
-                color: #333333 !important;
-                border-radius: 8px !important;
-            }}
-            button:not([kind="primary"]):hover {{
+            /* Secondary buttons (e.g., Sidebar Logout) */
+            div.stButton > button:not([kind="primary"]) {{
                 background-color: #d9d9d9 !important;
+                color: #333333 !important;
+                border: none !important;
+                border-radius: 8px !important;
+                padding: 10px 20px !important;
+                font-size: 16px !important;
+                font-weight: bold !important;
+            }}
+            div.stButton > button:not([kind="primary"]):hover {{
+                background-color: #bfbfbf !important;
                 color: #333333 !important;
             }}
             /* Selectbox (dropdown) */
@@ -113,14 +120,24 @@ def set_bg_from_local(image_file):
                 color: #000000 !important;
                 border: 1px solid #cccccc !important;
                 border-radius: 4px !important;
+                padding: 8px !important;
             }}
-            div[data-baseweb="select"] span {{
+            div[data-baseweb="select"] span, div[data-baseweb="select"] div, div[data-baseweb="select"] li {{
                 color: #000000 !important;
+                background-color: #ffffff !important;
             }}
-            /* Ensure placeholder text is visible */
-            input::placeholder, textarea::placeholder {{
+            /* Dropdown arrow */
+            div[data-baseweb="select"] > div::after {{
+                border-color: #000000 !important;
+            }}
+            /* Placeholder text */
+            input::placeholder {{
                 color: #666666 !important;
                 opacity: 1 !important;
+            }}
+            /* Sidebar background */
+            section[data-testid="stSidebar"] {{
+                background-color: rgba(0, 0, 0, 0.7) !important;
             }}
             /* Mobile responsiveness */
             @media (max-width: 600px) {{
@@ -128,11 +145,16 @@ def set_bg_from_local(image_file):
                     background-size: contain !important;
                     background-repeat: no-repeat !important;
                 }}
-                input, textarea, button, div[data-baseweb="select"] > div {{
+                div.stTextInput > div > input, div.stButton > button, div[data-baseweb="select"] > div {{
+                    font-size: 18px !important;
+                    padding: 10px !important;
+                }}
+                div.stTextInput > label, div.stSelectbox > label {{
                     font-size: 16px !important;
                 }}
-                label {{
-                    font-size: 14px !important;
+                div.stButton > button {{
+                    width: 100% !important;
+                    margin-bottom: 10px !important;
                 }}
             }}
             </style>
