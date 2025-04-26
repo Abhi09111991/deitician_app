@@ -18,7 +18,7 @@ SESSION_TIMEOUT_MINUTES = 30
 
 # ========== LOAD USERS ==========
 def load_doctor_users():
-    return json.loads(st.secrets["users_doctor"]["json"])
+    return dict(st.secrets["users_doctor"])
 
 # ========== SESSION TIMEOUT ==========
 def check_doctor_session_timeout():
