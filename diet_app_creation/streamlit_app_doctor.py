@@ -70,7 +70,7 @@ def set_bg_from_local(image_file):
                 background-color: #333333 !important; /* Fallback */
             }}
             /* Headers and markdown text */
-            h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div {{
+            h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div:not([data-baseweb="select"]) {{
                 color: white !important;
             }}
             /* Input fields */
@@ -122,7 +122,7 @@ def set_bg_from_local(image_file):
                 border-radius: 4px !important;
                 padding: 8px !important;
             }}
-            div[data-baseweb="select"] span, div[data-baseweb="select"] div, div[data-baseweb="select"] li {{
+            div[data-baseweb="select"] > div > span, div[data-baseweb="select"] > div *, div[data-baseweb="select"] span, div[data-baseweb="select"] div, div[data-baseweb="select"] li {{
                 color: #000000 !important;
                 background-color: #ffffff !important;
             }}
