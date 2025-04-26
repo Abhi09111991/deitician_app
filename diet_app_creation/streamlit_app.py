@@ -162,12 +162,25 @@ def set_bg_from_local(image_file):
             h1, h2, h3, h4, h5, h6, p, div, span, label, input, textarea {{
                 color: white !important;
             }}
+            button[kind="primary"] {{
+                background-color: #1f77b4;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 0.5em 1em;
+                font-size: 1em;
+            }}
+            button[kind="primary"]:hover {{
+                background-color: #0056b3;
+                color: white;
+            }}
             </style>
             """,
             unsafe_allow_html=True
         )
     except FileNotFoundError:
         st.error(f"Background image '{image_file}' not found.")
+
 
 
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
