@@ -36,6 +36,25 @@ def verify_otp(secret, otp):
     return totp.verify(otp)
 
 # ========== SET BACKGROUND ==========
+# def set_bg_from_local(image_file):
+#     try:
+#         with open(image_file, "rb") as img_file:
+#             encoded_string = base64.b64encode(img_file.read()).decode()
+#         st.markdown(
+#             f"""
+#             <style>
+#             .stApp {{
+#                 background-image: url("data:image/png;base64,{encoded_string}");
+#                 background-size: cover;
+#                 background-position: center;
+#             }}
+#             </style>
+#             """,
+#             unsafe_allow_html=True
+#         )
+#     except FileNotFoundError:
+#         st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
+
 def set_bg_from_local(image_file):
     try:
         with open(image_file, "rb") as img_file:
@@ -47,13 +66,17 @@ def set_bg_from_local(image_file):
                 background-image: url("data:image/png;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
+                color: white;
+            }}
+            h1, h2, h3, h4, h5, h6, p, div, span, label, input, textarea {{
+                color: white !important;
             }}
             </style>
             """,
             unsafe_allow_html=True
         )
     except FileNotFoundError:
-        st.error(f"Background image '{image_file}' not found. Please ensure it is in the same directory as the app.")
+        st.error(f"Background image '{image_file}' not found.")
 
 
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
