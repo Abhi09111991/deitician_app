@@ -62,6 +62,7 @@ def set_bg_from_local(image_file):
         st.markdown(
             f"""
             <style>
+            /* ========== Background and App ========== */
             .stApp {{
                 background-image: url("data:image/png;base64,{encoded_string}");
                 background-size: cover;
@@ -69,11 +70,11 @@ def set_bg_from_local(image_file):
                 background-attachment: fixed;
                 background-color: #333333 !important; /* Fallback */
             }}
-            /* Headers and markdown text */
+            /* ========== Headers and Markdown Text ========== */
             h1, h2, h3, h4, h5, h6, .stMarkdown p, .stMarkdown div:not([data-baseweb="select"]) {{
                 color: white !important;
             }}
-            /* Input fields */
+            /* ========== Input Fields ========== */
             div.stTextInput > div > input {{
                 background-color: #ffffff !important;
                 color: #000000 !important;
@@ -81,12 +82,12 @@ def set_bg_from_local(image_file):
                 border-radius: 4px !important;
                 padding: 8px !important;
             }}
-            /* Input labels */
+            /* ========== Input Labels ========== */
             div.stTextInput > label, div.stSelectbox > label {{
                 color: white !important;
                 font-weight: bold !important;
             }}
-            /* Primary buttons (e.g., Login, Verify OTP) */
+            /* ========== Primary Buttons (e.g., Login, Verify OTP) ========== */
             div.stButton > button[kind="primary"] {{
                 background-color: #1f77b4 !important;
                 color: #ffffff !important;
@@ -100,7 +101,7 @@ def set_bg_from_local(image_file):
                 background-color: #0056b3 !important;
                 color: #ffffff !important;
             }}
-            /* Secondary buttons (e.g., Sidebar Logout) */
+            /* ========== Secondary Buttons (e.g., Logout) ========== */
             div.stButton > button:not([kind="primary"]) {{
                 background-color: #d9d9d9 !important;
                 color: #333333 !important;
@@ -114,7 +115,7 @@ def set_bg_from_local(image_file):
                 background-color: #bfbfbf !important;
                 color: #333333 !important;
             }}
-            /* Selectbox (dropdown) */
+            /* ========== Selectbox (Dropdown) ========== */
             div[data-baseweb="select"] > div {{
                 background-color: #ffffff !important;
                 color: #000000 !important;
@@ -122,6 +123,12 @@ def set_bg_from_local(image_file):
                 border-radius: 4px !important;
                 padding: 8px !important;
             }}
+            /* Selected value inside selectbox */
+            div[data-baseweb="select"] div[role="combobox"] > div {{
+                color: #000000 !important;
+                background-color: #ffffff !important;
+            }}
+            /* Dropdown options inside selectbox */
             div[data-baseweb="select"] > div > span, 
             div[data-baseweb="select"] > div > div, 
             div[data-baseweb="select"] > div > div > span, 
@@ -141,11 +148,11 @@ def set_bg_from_local(image_file):
                 color: #666666 !important;
                 opacity: 1 !important;
             }}
-            /* Sidebar background */
+            /* ========== Sidebar ========== */
             section[data-testid="stSidebar"] {{
                 background-color: rgba(0, 0, 0, 0.7) !important;
             }}
-            /* Mobile responsiveness */
+            /* ========== Mobile Responsiveness ========== */
             @media (max-width: 768px) {{
                 .stApp {{
                     background-size: cover !important;
@@ -170,6 +177,7 @@ def set_bg_from_local(image_file):
         )
     except FileNotFoundError:
         st.error(f"Background image '{image_file}' not found.")
+
 
 set_bg_from_local("diet_app_creation/vegetables-set-left-black-slate.jpg")
 
