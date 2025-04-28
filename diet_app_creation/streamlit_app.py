@@ -250,7 +250,7 @@ def main_app():
     st.header("Enter Your Daily Information:")
 
     # Weight Input (kg)
-    weight = st.number_input("Weight (kg)", min_value=30, max_value=300, value=70)
+    weight = st.number_input("Weight (kg)", min_value=30.0, max_value=300.0, value=70)
 
     # Sleep Hours and Minutes
     st.subheader("Sleep Hours")
